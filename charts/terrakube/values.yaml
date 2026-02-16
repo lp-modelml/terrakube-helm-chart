@@ -378,10 +378,10 @@ ingress:
       enabled: false
       # -- If set, will implement CORS allow filter using the older `responseHeaderModifier` feature.
       compatibilityMode: true
+      # -- Set the origins to allow here. If using "compatibility mode" you can only have one origin.
+      # -- Helm templating expressions may be used here.
       allowOrigins:
-        - https://{{ .Values.ingress.api.domain }}
         - https://{{ .Values.ingress.ui.domain }}
-        - https://{{ .Values.ingress.registry.domain }}
       allowMethods:
         - GET
         - POST
