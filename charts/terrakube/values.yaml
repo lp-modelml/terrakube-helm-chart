@@ -373,6 +373,25 @@ ingress:
     enabled: false
     gateways: []
     annotations: {}
+    corsFilter:
+      # -- If set, will enable the CORS filter for Kubernetes Gateway API.
+      enabled: false
+      allowOrigins:
+        - https://{{ .Values.ingress.api.domain }}
+        - https://{{ .Values.ingress.ui.domain }}
+        - https://{{ .Values.ingress.registry.domain }}
+      allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      allowHeaders:
+        - Authorization
+        - Content-Type
+      additionalConfig:
+        # -- Place any additional configuration for the Gateway CORS configuration here
+        allowCredentials: true
 
   ui:
     enabled: true

@@ -35,4 +35,27 @@ spec:
     - name: {{ .Values.name }}-api-service
       port: 8080
 
+    {{- if .Values.ingress.gatewayapi.corsFilter.enabled }}
+    filters:
+    - type: CORS
+      cors:
+        {{- with .Values.ingress.gatewayapi.corsFilter.allowOrigins }}
+        allowOrigins:
+          {{- range . }}
+          - {{ tpl . $ | toYaml | trim }}
+          {{- end }}
+        {{- end }}
+        {{- with .Values.ingress.gatewayapi.corsFilter.allowMethods }}
+        allowMethods:
+          {{- . | toYaml | nindent 10 }}
+        {{- end }}
+        {{- with .Values.ingress.gatewayapi.corsFilter.allowHeaders }}
+        allowHeaders:
+          {{- . | toYaml | nindent 10 }}
+        {{- end }}
+        {{- with .Values.ingress.gatewayapi.corsFilter.additionalConfig }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
+    {{- end }}
+
 {{- end }}
