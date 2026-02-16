@@ -46,9 +46,9 @@ dex:
     web:
       http: 0.0.0.0:5556
       allowedOrigins: ['*']
-      skipApprovalScreen: true
     oauth2:
       responseTypes: ["code", "token", "id_token"]
+      skipApprovalScreen: true
 
     connectors:
     - type: ldap
@@ -235,6 +235,7 @@ api:
   imagePullSecrets: []
   initContainers: []
   startupProbe:
+    initialDelaySeconds: 30
     failureThreshold: 30
     periodSeconds: 5
   readinessProbe:
